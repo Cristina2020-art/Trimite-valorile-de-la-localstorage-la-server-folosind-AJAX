@@ -1,0 +1,1 @@
+# Trimite-valorile-de-la-localstorage-la-server-folosind-AJAX

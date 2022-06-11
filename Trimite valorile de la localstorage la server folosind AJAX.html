@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<title>Trimite valorile de la localstorage la server folosind AJAX</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/custom.css" rel="stylesheet" />
+<style type="text/css">
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <div class="container">
+    <h1 class="col-lg-9">Trimite valorile de la localstorage la server folosind AJAX</h1>
+    
+    </div>
+  </header>
+  <div class="container">
+    <h5>Autor: Vaidean Cristina, Iunie 2022</h5>
+    <p>Introdu un nume si da click pe <b>Seteaza LS</b> sa scrii in LocalStorage.<br/> 
+       Click pe <b>Trimite la Server </b> sa trimita valoarea la server.<br/>
+       Click pe <b>Clear</b> to Clear Local Storage value</p>
+<div class="row">
+      <div class="col-sm-4">
+        <div class="row">
+          <label class="col-sm-3" for="username">Username</label>
+          <div class="col-sm-9">
+            <input class="form-control text-right" type="text" id="username" /> 
+          </div>
+          <br/><br/>
+          <div class="col-sm-12 text-right"><br>
+            <button class="btn btn-default" id="setLS">Set LS</button> &nbsp;
+            <button class="btn btn-primary" id="sendLS">Send To Server</button> &nbsp; 
+            <button class="btn btn-danger" id="clearLS">Clear LS</button><br></br>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- INCLUDE "t1603.php:PHP" -->
+</div>
+</div>
+<footer>
+  <div class="container">
+    Copyright Vaidean Cristina &copy; 2022<br></br>
+  </div>
+</footer>
+ 
+<script src="http://code.jquery.com/jquery.js"></script>
+ 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+$(function() {
+  $('#setLS').click(function(e) {
+    e.preventDefault();
+    var username = $('#username').val();
+    window.localStorage.setItem("PortalLoginApp.userName", username);
+  });
+  $('#clearLS').click(function(e) {
+    e.preventDefault();
+    localStorage.clear(); 
+    $('#username').val('');
+  });
+  $('#sendLS').click(function(e) {
+    e.preventDefault();
+    var userName = window.localStorage.getItem("PortalLoginApp.userName");
+    $.ajax({
+           url: 't1603.php',
+           data: {userName: userName},
+           type: 'POST' 
+    }).done(function(resp) {
+          alert(resp);
+    });
+   });
+});
+</script>
+</body>
+</html>
+ 
